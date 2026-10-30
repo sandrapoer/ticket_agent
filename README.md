@@ -1,7 +1,7 @@
 # Ticket Agent (in progress)
-This project is supposed to act as a ticketing system. This first part consists of a ticket REST API with role-based permissions and autoamated tests using `pytest`. 
+This project is supposed to act as a ticketing system. This first part consists of a ticket REST API with role-based permissions and automated tests using `pytest`. 
 
-Later, the system will include an LLM agent.
+Later, the system will include an LLM agent and a database.
 
 ## Setup 
 ```bash
