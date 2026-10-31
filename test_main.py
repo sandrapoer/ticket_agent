@@ -38,4 +38,12 @@ def test_unknown_ticket() -> None:
 	r: Response = client.get("/tickets/999", headers=READER)
 	assert r.status_code == 404
 
+def test_invalid_status() -> None:
+	r: Response = client.patch("tickets/1", json={"status": "test"}, headers=AGENT)
+	assert r.status_code == 422
+
+def test_invalid_priority() -> None:
+	r: Response = client.post("/tickets", json={"title": "X", "priority": "urgent"}, headers=AGENT)
+	assert r.status_code == 422
+
 # run tests with pytest

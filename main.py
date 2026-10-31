@@ -1,6 +1,10 @@
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
+from typing import Literal
 
+# types that only allow exact strings
+TicketStatus = Literal["open", "in_progress", "closed"]
+Priority = Literal["high", "medium", "low"]
 
 # create application instance that Uvicorn can serve
 app = FastAPI()
@@ -22,7 +26,8 @@ def get_role(x_api_key: str | None) -> str:
 
 class NewTicket(BaseModel):
 	title: str
-	priority: str = "low"
+	# set a default priority
+	priority: Priority = "low"
 
 # register GET endpoint at root URL
 @app.get("/tickets")
@@ -48,7 +53,7 @@ def create_ticket(ticket: NewTicket, x_api_key: str | None = Header(None)) -> di
 	return tickets[new_id]
 
 class StatusUpdate(BaseModel):
-	status: str
+	status: TicketStatus
 
 @app.patch("/tickets/{ticket_id}")
 def update_status(ticket_id: int, update: StatusUpdate, x_api_key: str | None = Header(None)) -> dict[str, str | int]:
