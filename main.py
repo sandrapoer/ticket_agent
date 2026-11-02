@@ -44,7 +44,7 @@ def get_ticket(ticket_id: int, x_api_key: str | None = Header(None)) -> dict[str
 
 @app.post("/tickets", status_code=201) 
 def create_ticket(ticket: NewTicket, x_api_key: str | None = Header(None)) -> dict[str, str | int]:
-	role = get_role(x_api_key)
+	role: str = get_role(x_api_key)
 	if role != "agent":
 		raise HTTPException(status_code=403)
 	new_id = max(tickets) + 1
